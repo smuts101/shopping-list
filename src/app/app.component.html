@@ -1,0 +1,30 @@
+<div class="input-group mb-3">
+  <input type="text" [(ngModel)]="item" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+
+  
+    <input type="file" style="width:30%" (change)="onFileElected($event)">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" (click)="newItem()" type="button" id="button-addon2">Button</button>
+  </div>
+
+<table class="table">
+   <tbody>
+     <tr *ngFor="let x of ItemList,index as i">
+     <td>
+      {{x}} 
+     </td>
+     <td>
+     <input text="text" [(ngModel)]="itemEdit" placeholder="Item...">
+        <button class="btn btn-warning" (click)="editItem(i)">Edit</button>
+     </td>
+      <td>
+        <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
+     </td>
+     </tr>
+   </tbody>
+</table>
+
+</div>
+
+
