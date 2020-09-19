@@ -1,30 +1,93 @@
-<div class="input-group mb-3">
-  <input type="text" [(ngModel)]="item" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
 
 
-  
-    <input type="file" style="width:30%" (change)="onFileElected($event)">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" (click)="newItem()" type="button" id="button-addon2">Button</button>
-  </div>
-
-<table class="table">
-   <tbody>
-     <tr *ngFor="let x of ItemList,index as i">
-     <td>
-      {{x}} 
-     </td>
-     <td>
-     <input text="text" [(ngModel)]="itemEdit" placeholder="Item...">
-        <button class="btn btn-warning" (click)="editItem(i)">Edit</button>
-     </td>
-      <td>
-        <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
-     </td>
-     </tr>
-   </tbody>
-</table>
-
+<div style = "width: 50%; height: 150px;  overflow:scroll;margin-left: 25%;" >
+<table style="width:100%" *ngIf="isImageSaved; else elseTemplate">
+  <tr *ngFor="let y of combined,let i =index">
+    <td ><img [src]="y.url"  style="height:20%;border-radius: 100%;text-align:center;" />
+        <span style="color:royalblue;font-weight: bold;">{{y.item}}</span>
+      </td>
+    <td><button class="btn btn-danger"  (click)="removeItem(i)" type="button" >Remove</button></td>
+   <td><button class="btn btn-warning"   (click)="editItem(i,y.item)" type="button" >edit</button></td>
+  </tr>
+ </table>
 </div>
+<br>
+<br>
+<br>
+<div style="width:40%;margin-left:30%;">
+  <form #listData="ngForm">
+   <input type="text" 
+         [(ngModel)]="item" 
+         name="item"
+         class="form-control" 
+         placeholder="Item name..." 
+         aria-label="Recipient's username" 
+         aria-describedby="button-addon2" 
+         #ctrl="ngModel" required>
+         <div *ngIf="ctrl.invalid && (ctrl.dirty || ctrl.touched)"
+         class="alert alert-danger">
+        <div *ngIf="ctrl.errors.required">
+                  Username is required
+        </div>
+    </div>
+ <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input 
+          type="file" 
+          (change)="fileChangeEvent($event)" 
+          class="custom-file-input" 
+          id="inputGroupFile01" 
+          aria-describedby="inputGroupFileAddon01">
+      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+   </div>
+  <div style="color:red;">
+    <p>{{  this.imageError}}</p>
+  </div>
+    <button class="btn btn-success" [disabled] = "!listData.form.valid"  (click)="newItem()" type="button" >Add</button>
+</form>
+<br>
+<br>
+<br>
+    <ng-container *ngIf="valueEdit!=''">    
+    <input text="text"
+           [(ngModel)]="valueEdit" 
+           class="form-control"  
+           aria-label="Recipient's username" 
+           aria-describedby="button-addon2" 
+           placeholder="Item...">
+    <input 
+           type="file" 
+           (change)="editfileChangeEvent($event)" >
+    <br><br>
+    <button class="btn btn-primary" (click)="editItem(idEdit,valueEdit)">Edit</button>
+  </ng-container> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
