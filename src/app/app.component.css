@@ -1,4 +1,26 @@
 button{
     width:100%;
+
     
+}
+.container div,.container-2 div{
+/* border:1px solid red;*/
+}
+
+.container ,.container-2{
+    display: flex;
+    flex-direction: column;
+   
+  }
+  .item-name,.img-input,.upload-btn{
+    border:1px solid #fff; 
+  }
+ 
+  .buttons-divs {
+      display: flex;
+      align-items: center;
+    
+  }
+  .buttons-divs .edit-div,.buttons-divs  .delete-div{
+  flex-basis: 50%;
 }
