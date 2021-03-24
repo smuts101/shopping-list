@@ -1,0 +1,199 @@
+
+
+
+<ion-content [fullscreen]="true" >
+
+  <ion-grid style="background-color:#27AE60;display:flex;justify-content: center;align-items: center;height:100%">
+    <ion-row >
+      <div style="background-color: #27AE60;border:1px solid #27AE60;top:30px;position: absolute;width:100%; left: 0%;">
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2"><ion-icon style="font-size: 4em;color:#145A32;" name="create-sharp"></ion-icon></ion-col>
+            <ion-col size="10"><h1 style="color:white;color:#145A32;font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;"><b>ShoppingList</b></h1></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div style="background-color: white;width:100%;
+                  border-top-left-radius: 10%;
+                  border-top-right-radius: 10%;
+                  height: 70%;
+                  position: absolute;
+                  bottom :10%;
+                  left: 0%;
+                  border:1px solid white;
+                  ">
+                  <br>  <br>
+                  <div *ngIf="showEdit==0">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col><h4 style="color:#27AE60">ADD ITEMS</h4></ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col >
+                        <ion-label style="color:green;"><b>Item Name</b></ion-label>
+                        <ion-input   style="border-bottom: 2px solid #145A32;width:100%"  [(ngModel)]="item"  name="item"  type="text"    placeholder="" ></ion-input>
+                      </ion-col>
+                      <ion-col >     <ion-item>
+                        <ion-label  stacked><ion-icon style="font-size: 2em;" name="image-outline"></ion-icon><span style="">Item Image</span>   </ion-label>
+                        <div style="color:red;">
+                          <p>{{  this.imageError}}</p>
+                        </div>
+                        <ion-input type="file" style="margin-top: 3%;"accept="image/*"id="myFileInput"(change)="fileChangeEvent($event)" ></ion-input>
+                      </ion-item>  </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <div>
+                <div  style="overflow: auto;height: 220px;">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col  *ngFor="let y of combined,let i =index" size="6" >
+                          <div style="height:120px;background-color: #EAFAF1;border-radius: 10%;"> 
+                            <ion-img style="width:90%;height:80%;margin-left:5%;padding-top:6%;" [src]="y.imgurl"></ion-img>
+                          </div>
+                          <ion-grid>
+                            <ion-row>
+                              <ion-col size="7"><ion-label style="padding:5px;color: #3d0815;font-weight: 1em;font-weight: bold;font-size: .8em;" >{{y.item}} </ion-label></ion-col>
+                              <ion-col size="2" ><ion-icon style="border-radius: 5px;color: white;font-size: 1.5em;background-color: #7DCEA0;" name="create-outline"  (click)="editItem(y.id,y.item)" ></ion-icon></ion-col>
+                            <ion-col size="1"></ion-col>
+                              <ion-col size="2">
+                                <ion-icon style="background-color: #C0392B;border-radius: 5px;color: white;font-size: 1.5em;" name="trash-outline" (click)="removeItem(y.id)"></ion-icon></ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+               </div>
+           </div>
+           <div *ngIf="showEdit==1">
+            <ion-grid>
+              <ion-row>
+                <ion-col siz3="3">
+                  <ion-icon style="font-size: 1.5em;" name="arrow-back-outline" (click)="back()"></ion-icon>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <h4 style="color: green;"><b>Edit Item</b></h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col >
+                  <ion-label style="font-weight: bold;padding-top:10px">Item Name</ion-label>
+                  <ion-input    style="background-color: #D1F2EB;border-radius: 5px;"   text="text" [(ngModel)]="valueEdit" placeholder="Item name..." ></ion-input>
+                </ion-col>
+                <ion-col >      <ion-label style="font-weight: bold;" stacked>Image</ion-label>
+                  <div style="color:rgb(163, 7, 7);">
+                    <p>{{  this.imageError}}</p>
+                  </div>
+                  <ion-input type="file" accept="image/*"   (change)="editfileChangeEvent($event)"  ></ion-input>
+                 </ion-col>
+              </ion-row>
+         
+            </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <ion-item>
+              <ion-label position="floating">Item Name</ion-label>
+              <ion-input       text="text" [(ngModel)]="valueEdit" placeholder="Item name..." ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label  stacked>Image</ion-label>
+              <div style="color:rgb(163, 7, 7);">
+                <p>{{  this.imageError}}</p>
+              </div>
+              <ion-input type="file" accept="image/*"   (change)="editfileChangeEvent($event)"  ></ion-input>
+            </ion-item>
+            <ion-button (click)="editItem(idEdit,valueEdit)"  >
+              <ion-icon slot="start" name="star"  ></ion-icon>
+              Left Icon
+            </ion-button> -->
+           </div> 
+         
+ 
+      </div>
+      <div style="background-color:#2ECC71;
+                  width:100%;
+                  height:18%;
+                  border-top-left-radius: 10%;
+                  border-top-right-radius: 10%;
+                  bottom :0;
+                  position: absolute;
+                  z-index: 1;
+                  left: 0%;
+                  border:1px solid white;
+      ">
+  
+  <div style=" border:1px solid white;
+               width:20%;margin-left: 40%;
+               height:55%;
+               top:-5%;
+               position: absolute;
+               border-radius: 100%;
+               border:5px solid  rgb(5, 129, 47);
+               text-align: center;
+               background-color: white;">
+               <ion-icon (click)="newItem()" *ngIf=" showEdit !=1" style="font-size: 2em;
+                                padding:10%;color: rgb(5, 129, 47);
+                              
+                                " name="cart-sharp"></ion-icon>
+                           
+                                <ion-icon style="font-size: 2em; padding:10%;color: rgb(163, 219, 9);"*ngIf="showEdit==1"   (click)="editItem(idEdit,valueEdit)" name="create-sharp"></ion-icon>
+                              
+                              </div>
+</div>
+      <!-- <div style="background-color:
+       red;width:100%;height:150px;border-radius:20%;
+       z-index:1
+       ">
+        <ion-list>
+          <ion-item  *ngFor="let y of combined,let i =index">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="y.imgurl"></ion-img>
+            </ion-thumbnail>
+            <ion-label style="padding:5px;color: #3d0815;font-weight: 1em;font-weight: bold;" >{{y.item}} </ion-label>
+            <div class="buttons-divs">
+              <ion-icon name="trash-outline" (click)="removeItem(y.id)"></ion-icon>
+              <div class="edit-div"></div>
+              <div class="delete-div">
+                <ion-icon name="create-outline"  (click)="editItem(y.id,y.item)" ></ion-icon>
+               </div>
+            </div>
+          </ion-item>
+        </ion-list>
+    </div> -->
+    </ion-row>
+  </ion-grid>
+
+
+
+<!-- 
+<div style="margin-top: 62%;">
+  <ion-item>
+    <ion-label position="floating">Item Name</ion-label>
+    <ion-input    style="border-bottom:2px solid red"   [(ngModel)]="item"  name="item"  type="text"    placeholder="" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label  stacked><ion-icon large name="folder-outline"></ion-icon>Choose a picture  </ion-label>
+    <div style="color:red;">
+      <p>{{  this.imageError}}</p>
+    </div>
+    <ion-input type="file" style="margin-top: 3%;"accept="image/*"id="myFileInput"(change)="fileChangeEvent($event)" ></ion-input>
+  </ion-item>
+</div> -->
+
+
+
+
+
+</ion-content>
